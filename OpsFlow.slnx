@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="opsflow.client/opsflow.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="OpsFlow.Server/OpsFlow.Server.csproj" />
+</Solution>
