@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# add appsettings.json to ignore list, if you want to keep it in source control, remove the line below
+**/appsettings.Development.json

@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using OpsFlow.Server.Core;
+
 namespace OpsFlow.Server
 {
     public class Program
@@ -12,6 +15,10 @@ namespace OpsFlow.Server
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            //Register DbContext
+            builder.Services.AddDbContext<OpsFlowContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
