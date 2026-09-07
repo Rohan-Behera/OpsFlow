@@ -33,6 +33,8 @@ namespace OpsFlow.Server
 
             app.UseHttpsRedirection();
 
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
