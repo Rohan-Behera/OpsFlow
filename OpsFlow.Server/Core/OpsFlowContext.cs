@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OpsFlow.Server.Models.DTOModels.AuthDTO;
 using OpsFlow.Server.Models.EntityModels;
 
 namespace OpsFlow.Server.Core
@@ -19,7 +20,7 @@ namespace OpsFlow.Server.Core
         public DbSet<LeaveRequest> LeaveRequests => Set<LeaveRequest>();
         public DbSet<LeaveType> LeaveTypes => Set<LeaveType>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
-
+        public DbSet<RefreshTokens> RefreshTokens => Set<RefreshTokens>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -211,6 +212,18 @@ namespace OpsFlow.Server.Core
                  .WithMany(x => x.AuditLogs)
                  .HasForeignKey(x => x.UserId)
                  .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            //----------Refresh Tokens-------------
+            modelBuilder.Entity<RefreshTokens>(e =>
+            {
+                e.ToTable("RefreshTokens");
+                e.HasKey(x => x.Id);
+                e.HasIndex(x => x.UserId);
+                e.HasOne(x => x.User)
+                 .WithMany(x => x.RefreshTokens)
+                 .HasForeignKey(x => x.UserId)
+                 .OnDelete(DeleteBehavior.Cascade);
             });
 
         }

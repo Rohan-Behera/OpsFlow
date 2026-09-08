@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OpsFlow.Server.Models.DTOModels.AuthDTO;
+using System.ComponentModel.DataAnnotations;
 
 namespace OpsFlow.Server.Models.EntityModels
 {
@@ -20,5 +21,6 @@ namespace OpsFlow.Server.Models.EntityModels
         public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
         public Employee? Employee { get; set; }
         public ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
+        public ICollection<RefreshTokens> RefreshTokens { get; set; } = new List<RefreshTokens>();
     }
 }
