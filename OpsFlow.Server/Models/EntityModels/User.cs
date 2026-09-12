@@ -21,6 +21,6 @@ namespace OpsFlow.Server.Models.EntityModels
         public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
         public Employee? Employee { get; set; }
         public ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
-        public ICollection<RefreshTokens> RefreshTokens { get; set; } = new List<RefreshTokens>();
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

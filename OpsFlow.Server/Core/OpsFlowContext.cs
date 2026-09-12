@@ -20,7 +20,7 @@ namespace OpsFlow.Server.Core
         public DbSet<LeaveRequest> LeaveRequests => Set<LeaveRequest>();
         public DbSet<LeaveType> LeaveTypes => Set<LeaveType>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
-        public DbSet<RefreshTokens> RefreshTokens => Set<RefreshTokens>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -215,11 +215,39 @@ namespace OpsFlow.Server.Core
             });
 
             //----------Refresh Tokens-------------
-            modelBuilder.Entity<RefreshTokens>(e =>
+            modelBuilder.Entity<RefreshToken>(e =>
             {
-                e.ToTable("RefreshTokens");
+                e.ToTable("RefreshToken");
                 e.HasKey(x => x.Id);
+
+                e.Property(x => x.Id)
+                 .ValueGeneratedOnAdd();
+
+                e.Property(x => x.UserId)
+                 .IsRequired();
+
+                e.Property(x => x.TokenHash)
+                 .HasMaxLength(256)
+                 .IsRequired();
+
+                e.Property(x => x.ExpiresAt)
+                 .HasColumnType("datetime2")
+                 .IsRequired();
+
+                e.Property(x => x.Revoked)
+                 .IsRequired()
+                 .HasDefaultValue(false);
+
+                e.Property(x => x.CreatedAt)
+                 .HasColumnType("datetime2")
+                 .IsRequired()
+                 .HasDefaultValueSql("SYSUTCDATETIME()");
+
+                e.HasIndex(x => x.TokenHash)
+                 .IsUnique();
+
                 e.HasIndex(x => x.UserId);
+
                 e.HasOne(x => x.User)
                  .WithMany(x => x.RefreshTokens)
                  .HasForeignKey(x => x.UserId)
